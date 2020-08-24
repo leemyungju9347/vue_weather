@@ -1,14 +1,13 @@
 <template>
   <div id="app">
-    <searchCitys></searchCitys>
+    <AppHeader></AppHeader>
     <router-view></router-view>
   </div>
 </template>
 <script>
-
-import searchCitys from './components/SearchCitys'
+import AppHeader from '@/components/common/AppHeader.vue';
 export default {
-  components:{searchCitys}
+  components:{AppHeader}
 }
 </script>
 <style>

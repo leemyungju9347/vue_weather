@@ -1,97 +1,70 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {weatherApi,weatherweeklyApi,weatherLocationApi,weatherweeklyApi2,weatherFiveDaysApi} from '../api/index'
+import {currentWeather,weeklyWeather} from '../api/index'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    city:[],
-    weeklyWeather:[],
-    locationWether:[],
-    weeklyWeather2:[],
-    fiveDaysWeather:[]
+    // 검색 도시
+    city:'',
+    // 현재 날씨 데이터
+    weatherData:[],
+    weatherMain:null,
+    weatherInfo:null,
+    // 위치
+    location:{
+      lat:null,
+      lon:null
+    },
+    // 주간 날씨 데이터
+    weeklyData:[],
+    weekly:[],
+    timezone:''
   },
   mutations: {
-    SET_WEATHER(state,city){
+    SET_WEATHER(state,data){
+      state.weatherData = data;
+      state.weatherMain = data.main;
+      state.weatherInfo = data.weather[0]
+      state.location.lat = data.coord.lat
+      state.location.lon = data.coord.lon
+    },
+    SET_CITY(state,city){
       state.city = city
     },
-    SET_WEEKLY(state,weekly){
-      state.weeklyWeather = weekly
+    SET_WEEKLY(state,data){
+      state.weekly = data
+      state.weeklyData = data.daily
+      state.timezone = data.timezone
     },
-    SET_LOCATION(state,locate){
-      state.locationWether = locate
-    },
-    SET_WEEKLY2(state,week){
-      state.weeklyWeather2 = week
-    },
-    SET_FIVEDAY(state,five){
-      state.fiveDaysWeather = five
-    }
   },
   actions: {
-    FETCH_WEATHER(context,cityName){
-      return weatherApi(cityName)
-      .then(res=>{
-        context.commit('SET_WEATHER',res.data)
+    // 현재 날씨 데이터
+    async FETCH_WEATHER({commit},cityName){
+      try {
+        const response = await currentWeather(cityName)
+
+        commit('SET_WEATHER',response.data)
+
+        return response
+      } catch (error) {
+        console.log('여기는 스토어 fetch weather',error);
+      }
+      
+    },
+    // 주간 날씨 데이터
+    async FETCH_WEEKLY_WEATHER({commit},location){
+      try {
+        const response = await weeklyWeather(location)
         
-        return res
-      })
-      .catch(err=>{
-          console.log(err);
-          
-      })
-    },
-    FETCH_WEEKLY(context,{lat,lon}){
-      return weatherweeklyApi(lat,lon)
-        .then(res => {
-          context.commit('SET_WEEKLY',res.data)
+        commit('SET_WEEKLY',response.data)
+        return response 
 
-          return res
-      })
-      .catch(err=>{
-        console.log(err);
-        
-    })
-    },
-    FETCH_LOWEATHER(context,{lat,lon}){
-      return weatherLocationApi(lat,lon)
-        .then(res=>{
-            context.commit('SET_LOCATION',res.data)
-
-            return res
-        })
-        .catch(err=>{
-          console.log(err);
-          
-      })
-    },
-    FETCH_WEEKLY2(context,{lat,lon}){
-        return weatherweeklyApi2(lat,lon)
-          .then(res=>{
-              context.commit('SET_WEEKLY2',res.data)
-
-              return res
-          })
-          .catch(err=>{
-            console.log(err);
-            
-        })
-          
-    },
-    FETCH_FIVEDAYS(context,cityName){
-        return weatherFiveDaysApi(cityName)
-          .then(res=>{
-              context.commit('SET_FIVEDAY',res.data)
-
-              return res
-          })
-          .catch(err=>{
-            console.log(err);
-            
-        })
+      } catch (error) {
+        console.log('여기는 스토어 fetch location',error);
+      }
     }
-
   },
   modules: {
   }
