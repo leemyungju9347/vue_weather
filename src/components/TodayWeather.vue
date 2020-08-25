@@ -1,12 +1,34 @@
 <template>
-  <div class="today-weather">
-    <h2>오늘의 날씨</h2>
-    <strong>{{weatherData}}</strong>
-    <h3><i class="fas fa-map-marker-alt"></i>{{weatherData.name}}</h3>
+  <div class="today-weather" v-if="weatherData && weatherMain && weatherInfo">
+    <!-- 간단한 날씨 정보 -->
+    <div class="summary-weather">
+      <!-- 도시, 날짜 -->
+      <h3>
+        <i class="fas fa-map-marker-alt"></i>
+        {{weatherData.name}} , {{ weatherData.sys.country }}
+        </h3>
+      <p class="date">{{ todayFormat(weatherData.dt) }}</p>
+      <!-- 날씨정보 -->
+      <div class="weather-info">
+        <i class="wi main-icon" :class="`wi-owm-${weatherInfo.id}`"></i>
+        <strong class="temp">{{ weatherMain.temp }} °C</strong>
+        <strong class="weather-desc">{{ weatherInfo.main }}</strong>
+      </div> 
+    </div>
+    <!-- 자세한 날씨 정보 -->
+    <ul class="detail-weather">
+      <li><i class="wi wi-direction-up"></i>{{ weatherMain.temp_max }} °C</li>
+      <li><i class="wi wi-direction-down"></i>{{ weatherMain.temp_min }} °C</li>
+      <li><i class="wi wi-humidity"></i>{{ weatherMain.humidity }} %</li>
+      <li><i class="wi wi-strong-wind"></i>{{ weatherData.wind.speed }} m/s</li>
+      <li><i class="wi wi-sunrise"></i>{{ sysFormat(weatherData.sys.sunrise) }}</li>
+      <li><i class="wi wi-sunset"></i>{{ sysFormat(weatherData.sys.sunset) }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
+import {dateFormat,sysDateFormat} from '@/utils/filters'
 export default {
   data() {
     return {
@@ -57,12 +79,19 @@ export default {
         // 2. 인풋값이 입력되면 출력하도록
       }else{
         console.log('위치 정보가 없어요!!');
+        
       }
     },
+    // 날짜 출력 함수
+    todayFormat(date){
+      return dateFormat(date)
+    },
+    sysFormat(date){
+      return sysDateFormat(date)
+    }
   }
 }
 </script>
 
 <style>
-
 </style>

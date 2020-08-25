@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const config = {
-    baseUrl : 'https://api.openweathermap.org/data/2.5/weather?', //나라, 도시를 입력하는 url
+    baseUrl : 'https://api.openweathermap.org/data/2.5/weather?', // 현재 날씨를 출력해주는 url
     weeklyUrl:'https://api.openweathermap.org/data/2.5/onecall?lat=', // 일주일간 날씨를 출력해주는 url
     fiveDaysUrl:'https://api.openweathermap.org/data/2.5/forecast?q=',
     myKeyValue : 'e9bddd582ebeafb67b70af6a1ce5a3c5',
@@ -16,8 +16,6 @@ function currentWeather(cityName){
 function weeklyWeather(location){
     return axios.get(`${config.weeklyUrl}${location.lat}&lon=${location.lon}&appid=${config.myKeyValue}&units=metric`)
 }
-
-// &exclude=hourly,current
 
 // 5일 3시간
 function fiveDaysWeather(cityName){

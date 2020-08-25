@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {currentWeather,weeklyWeather} from '../api/index'
+import {currentWeather,weeklyWeather} from '@/api/index'
 
 Vue.use(Vuex)
 

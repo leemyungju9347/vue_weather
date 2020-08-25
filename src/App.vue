@@ -11,5 +11,9 @@ export default {
 }
 </script>
 <style>
+@import url('./weather-icons-master/css/weather-icons.css');
+@import './assets/css/reset.css';
+@import './assets/css/common.css';
+@import './assets/css/index.css';
 
 </style>

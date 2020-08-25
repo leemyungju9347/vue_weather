@@ -1,0 +1,155 @@
+/*------------ common --------------*/
+/* i::before { font-family: Font Awesome\ 5 Free;} */
+
+#app{
+    height: 100%;
+    width:95%;
+    margin: 0 auto;
+}
+
+/*------------ app-header --------------*/
+.app-header{height: 100px;}
+.app-header > form { 
+    height: 100%;
+    width: 52%;
+    margin:20px auto 0;
+    text-align: center;
+    padding-top: 30px;
+    position: relative;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #555555;
+
+}
+.app-header > form:focus-within > label{
+    visibility: hidden;
+}
+.app-header > form > label {
+    position: absolute;
+    left: 25px;
+    top: 40px;
+    /* color: #fff; */
+    color: #555555;
+    /* color: #ffffffb5; */
+}
+.app-header > form > input {
+    border: unset;
+    border-radius:30px;
+    width: 100%;
+    padding: 13px 25px;
+    /* background-color: #d09d9d69; */
+    /* background-color:#d09d9db0; */
+    font-size: 1.2em;
+    /* color: #555555; */
+    /* color: #fff; */
+    font-weight: bold;
+    /* box-shadow: 5px 5px 5px 5px #d6b7b79e; */
+    /* box-shadow: 5px 5px 5px 5px #8e86ad; */
+    box-shadow: 5px 5px 5px 5px #7b7b7b54;
+    background: #ffffff;
+    color: #555555;
+
+}
+.app-header > form > button {
+    border: unset;
+    background-color: unset;
+    position: absolute;
+    right: 23px;
+    /* color: #fff; */
+    top: 46px;
+    color: #555555;
+
+}
+.app-header > form > button > .fa-search {
+    font-size: 1.5em;
+}
+
+/*------------ today-weather --------------*/
+.weather-wrap {
+    margin-top:50px; 
+}
+
+.weather-wrap > .weekly-weather {
+    background-color: darkkhaki;
+    margin-top: 30px;
+    
+}
+
+.today-weather {
+    /* background-color: lightgreen; */
+    width:85%;
+    margin: 0 auto;
+    color:#fff;
+    position: relative;
+}
+.today-weather > .summary-weather {
+    /* border: 1px solid red; */
+    padding:30px 50px;
+    position: relative;
+    background-color: #eee3;
+    border-radius: 30px;
+    /* box-shadow: 5px 5px 5px 5px #d5b0b02b; */
+    /* box-shadow: 5px 5px 5px 5px #867b7b2b; */
+}
+.today-weather > .summary-weather > h3 {
+    /* border: 1px solid blue; */
+    font-size: 3em;
+}
+.today-weather > .summary-weather > h3 > i {
+}
+.today-weather > .summary-weather > .date {
+    font-size:1.5em;
+    padding-left: 8px;
+    padding-top: 10px;
+}
+.today-weather > .summary-weather > .weather-info {
+    /* border:1px solid blue; */
+    margin-top: 160px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.today-weather > .summary-weather > .weather-info > * {
+    font-size: 2.5em;
+    display: block;
+}
+
+.today-weather > .summary-weather > .weather-info > .main-icon {
+    font-size:10em;
+}
+.today-weather > .summary-weather > .weather-info > .temp {
+    font-size: 2em;
+    top: 15px;
+    position: absolute;
+    left: 184px;
+
+}
+.today-weather > .summary-weather > .weather-info > .weather-desc {
+    position: absolute;
+    left: 30px;
+    top: -65px;
+}
+.weather-wrap > .today-weather > .detail-weather {
+    /* background-color: cadetblue; */
+    /* background-color: #81A2D7; */
+    /* background-color: #98b6e78a; */
+    border-radius: 30px;
+    width: 50%;
+    position: absolute;
+    right: 0;
+    bottom: 35px;
+    padding: 30px;
+}
+.weather-wrap > .today-weather > .detail-weather > li {
+    float: left;
+    width: 33.333333%;
+    padding: 20px 0;
+}
+.weather-wrap > .today-weather > .detail-weather > li > i {
+    font-size: 2.5em;
+    padding: 10px;
+    margin-right: 10px;
+}
+.weather-wrap > .today-weather > .detail-weather > li + li {
+
+}

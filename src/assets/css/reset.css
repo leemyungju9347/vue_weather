@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@font-face {
+    font-family: 'Recipekorea';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Recipekorea.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JSDongkang-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+            
+html {
+	font-size:100%;
+
+}
+body {
+	font-size:14px;
+	font-family: 'BBTreeGR', sans-serif;
+	line-height:1.6;
+	margin:0;
+	padding:0;
+	word-break: keep-all;
+	background-color:lightyellow;
+	height:170vh;
+	/* background: linear-gradient(to bottom,#e7c7c7,#bab3d5); */
+	/* font-family: 'Noto Sans KR', sans-serif; */
+	font-family: 'Recipekorea';
+	font-family: 'JSDongkang-Regular';
+	font-weight: bold;
+	background:linear-gradient(to bottom,#9e90d2,#d09d9d);
+	/* background:linear-gradient(to bottom,#AB9BD5,#424C82); */
+	/* background:linear-gradient(to right,#e7c7c7,#81A2D7); */
+	/* 저녁버전 */
+	/* background: linear-gradient(to bottom,#424C82,#AB9BD5); */
+}
+body.night {
+	background: linear-gradient(to bottom,#424C82,#AB9BD5);
+
+}
+h1, h2, h3, h4, h5, h6 {font-size:1em;}
+h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, form, fieldset, blockquote, address, table, thead, tbody, tfoot, tr, td, caption {
+	margin:0;
+	padding:0;
+}
+em,i {font-style: normal;}
+ul, ol, li {list-style:none;}
+a:link, a:visited {text-decoration:none;color:#555555}
+strong, span, p {}
+
+button:focus,
+input:focus,
+select:focus {
+	outline: none;
+	outline-offset:unset;
+}
+/* input,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+	-webkit-text-fill-color: #585858 !important;
+} */
+
+button {
+	cursor: pointer;
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	/* font-family: 'Noto Sans KR', sans-serif; */
+	
+}
