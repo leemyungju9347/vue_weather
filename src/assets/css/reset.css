@@ -1,10 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-@font-face {
-    font-family: 'Recipekorea';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Recipekorea.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 
 @font-face {
     font-family: 'JSDongkang-Regular';
@@ -12,6 +6,8 @@
     font-weight: normal;
     font-style: normal;
 }
+
+            
             
 html {
 	font-size:100%;
@@ -25,17 +21,17 @@ body {
 	padding:0;
 	word-break: keep-all;
 	background-color:lightyellow;
-	height:170vh;
+	/* height:200vh; */
 	/* background: linear-gradient(to bottom,#e7c7c7,#bab3d5); */
-	/* font-family: 'Noto Sans KR', sans-serif; */
-	font-family: 'Recipekorea';
-	font-family: 'JSDongkang-Regular';
+	font-family: 'Noto Sans KR', sans-serif;
+	/* font-family: 'JSDongkang-Regular'; */
 	font-weight: bold;
 	background:linear-gradient(to bottom,#9e90d2,#d09d9d);
 	/* background:linear-gradient(to bottom,#AB9BD5,#424C82); */
 	/* background:linear-gradient(to right,#e7c7c7,#81A2D7); */
 	/* 저녁버전 */
 	/* background: linear-gradient(to bottom,#424C82,#AB9BD5); */
+
 }
 body.night {
 	background: linear-gradient(to bottom,#424C82,#AB9BD5);
@@ -74,6 +70,4 @@ button {
 *:after,
 *:before {
 	box-sizing: border-box;
-	/* font-family: 'Noto Sans KR', sans-serif; */
-	
 }

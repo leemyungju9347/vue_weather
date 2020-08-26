@@ -19,7 +19,8 @@ export default new Vuex.Store({
     },
     // 주간 날씨 데이터
     weeklyData:[],
-    weekly:[],
+    weeklyInfo:null,
+    weekly:null,
     timezone:''
   },
   mutations: {
@@ -49,7 +50,7 @@ export default new Vuex.Store({
 
         return response
       } catch (error) {
-        console.log('여기는 스토어 fetch weather',error);
+        console.log('여기는 스토어 fetch current weather',error);
       }
       
     },
@@ -62,7 +63,7 @@ export default new Vuex.Store({
         return response 
 
       } catch (error) {
-        console.log('여기는 스토어 fetch location',error);
+        console.log('여기는 스토어 fetch weekly weather',error);
       }
     }
   },
