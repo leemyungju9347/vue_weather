@@ -25,6 +25,7 @@ function timeFormat(dt) {
     return `${hours} : ${minutes}`
 }
 
+
 // 요일 포맷
 function daysFormat(dt){
     let today = new Date(dt * 1000);
@@ -40,8 +41,17 @@ function dateFormat(dt){
     let date = today.getDate();
     date = date >= 10 ? date : `0${date}`
 
-    
     return `${date} ${month}`
 }
 
-export {todayFormat,timeFormat,daysFormat,dateFormat}
+function currentTimeFormat(date) {
+    let hours = date.getHours();
+    hours = hours >= 10 ? hours :`0${hours}`
+    let minutes = date.getMinutes()
+    minutes = minutes >= 10 ? minutes :`0${minutes}`
+    let seconds = date.getSeconds()
+    seconds = seconds >= 10 ? seconds :`0${seconds}`
+    return `${date.toDateString()}  ${hours} : ${minutes} : ${seconds}`
+}
+
+export {todayFormat,timeFormat,daysFormat,dateFormat,currentTimeFormat}

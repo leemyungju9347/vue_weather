@@ -11,7 +11,7 @@
           <span class="max"><i class="wi wi-direction-up"></i>{{ item.temp.max }} °C</span>
           <span class="min"><i class="wi wi-direction-down"></i>{{ item.temp.min }} °C</span>
         </p>
-        <i class="wi ww-icon" :class="`wi-owm-${item.weather[0].id}`"></i>
+        <i class="icon wi ww-icon" :class="`wi-owm-${item.weather[0].id}`"></i>
         <!-- 날씨 설명 -->
         <p class="ww-desc">{{ item.weather[0].description }}</p>
       </li>

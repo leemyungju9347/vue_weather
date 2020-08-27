@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 검색 도시
-    city:'',
+    currentCity:'',
     // 현재 날씨 데이터
     weatherData:[],
     weatherMain:null,
@@ -19,7 +19,6 @@ export default new Vuex.Store({
     },
     // 주간 날씨 데이터
     weeklyData:[],
-    weeklyInfo:null,
     weekly:null,
     timezone:''
   },
@@ -30,6 +29,7 @@ export default new Vuex.Store({
       state.weatherInfo = data.weather[0]
       state.location.lat = data.coord.lat
       state.location.lon = data.coord.lon
+      state.currentCity = data.name
     },
     SET_CITY(state,city){
       state.city = city
