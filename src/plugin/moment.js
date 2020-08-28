@@ -1,5 +1,5 @@
-import momentTimezone from 'moment-timezone'
+import momentTimezone from 'moment-timezone';
 
-const moment = momentTimezone
+const moment = momentTimezone;
 
-export default moment
+export default moment;
