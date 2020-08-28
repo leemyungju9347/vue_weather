@@ -1,6 +1,6 @@
 <template>
 <!-- 오늘의 날씨 -->
-  <div class="today-weather" v-if="weatherData && weatherMain && weatherInfo">
+  <div v-bind="dayStatusControl()" class="today-weather" v-if="weatherData && weatherMain && weatherInfo">
     <!-- 간단한 날씨 정보 -->
     <div class="summary-weather">
       <!-- 도시, 날짜 -->
@@ -9,7 +9,7 @@
         {{weatherData.name}} , {{ weatherData.sys.country }}
       </h3>
       <!-- 해당 도시의 현재 시간까지 출력하기. -->
-      <p class="date">{{ todayForm(weatherData.dt) }}</p>
+      <p class="date">{{ todayForm(currentTime,timezone) }}</p>
       <!-- 날씨정보 -->
       <div class="weather-info">
         <i class="icon wi main-icon" :class="`wi-owm-${dayTime}-${weatherInfo.id}`"></i>
@@ -19,12 +19,36 @@
     </div>
     <!-- 자세한 날씨 정보 -->
     <ul class="detail-weather">
-      <li class="m-temp"><i class="wi wi-direction-up"></i>{{ weatherMain.temp_max }} °C</li>
-      <li class="m-temp"><i class="wi wi-direction-down"></i>{{ weatherMain.temp_min }} °C</li>
-      <li><i class="wi wi-humidity"></i>{{ weatherMain.humidity }} %</li>
-      <li><i class="wi wi-strong-wind"></i>{{ weatherData.wind.speed }} m/s</li>
-      <li><i class="wi wi-sunrise"></i>{{ sysTimeForm(weatherData.sys.sunrise) }}</li>
-      <li><i class="wi wi-sunset"></i>{{ sysTimeForm(weatherData.sys.sunset) }}</li>
+      <li class="m-temp">
+        <i class="wi wi-direction-up"></i>
+        <span>max</span>
+        {{ weatherMain.temp_max }} °C
+        </li>
+      <li class="m-temp">
+        <i class="wi wi-direction-down"></i>
+        <span>min</span>
+        {{ weatherMain.temp_min }} °C
+      </li>
+      <li>
+        <i class="wi wi-humidity"></i>
+        <span>humidity</span>
+        {{ weatherMain.humidity }} %
+      </li>
+      <li>
+        <i class="wi wi-strong-wind"></i>
+        <span>wind</span>
+        {{ weatherData.wind.speed }} m/s
+      </li>
+      <li>
+        <i class="wi wi-sunrise"></i>
+        <span>sunrise</span>
+        {{ dayTimeSet(sunrise,timezone,true) }}
+      </li>
+      <li>
+        <i class="wi wi-sunset"></i>
+        <span>sunset</span>
+        {{ dayTimeSet(sunset,timezone,true) }}
+      </li>
     </ul>
     <!-- 새로고침 기능 보류 -->
     <div class="refresh-weather">
@@ -36,8 +60,8 @@
 </template>
 
 <script>
-import {todayFormat,timeFormat,currentTimeFormat} from '@/utils/filters'
-import moment from 'moment-timezone'
+import {currentTimeFormat,dayTimeSetting,localDateFormat} from '@/utils/dateFilters'
+
 export default {
   data() {
     return {
@@ -50,6 +74,7 @@ export default {
     }
   },
   computed:{
+    // 날씨 데이터
     weatherData(){
       return this.$store.state.weatherData
     },
@@ -59,36 +84,24 @@ export default {
     weatherMain(){
       return this.$store.state.weatherMain
     },
+    // 현재 도시 위치
     currentCity(){
       return this.$store.state.currentCity
     },
-    weeklyLocation(){
-      return this.$store.state.location
-    },
+    // 일출 일몰
     sunset(){
-      return timeFormat(this.weatherData.sys.sunset)
+      return this.weatherData.sys.sunset
     },
     sunrise(){
-      return timeFormat(this.weatherData.sys.sunrise)
+      return this.weatherData.sys.sunrise
     },
+    currentTime(){
+      return this.$store.state.weatherData.dt
+    },
+    // 현재 국가 위치타임존
     timezone(){
       return this.$store.state.timezone
     }
-    // timezone(){
-    //   return new Date(this.weatherData.timezone * 1000)
-    // },
-    // timeSet(){
-    //   return new Date(this.weatherData.dt * 1000).toGMTString()
-    // },
-    // cityTimezone(){
-    //   return new Date(this.weatherData.sys.sunset * 1000 + this.weatherData.timezone)
-    // },
-    // localTimezone(){
-    //   return new Date(this.weatherData.dt).getTimeZoneOffset()
-    // },
-    // timeCalc(){
-    //   return new Date(this.weatherData.sys.sunrise * 1000 -(this.weatherData.timezone * 1000))
-    // }
   },
   async created(){ 
     try{
@@ -98,11 +111,10 @@ export default {
       console.log('TodayWeather.vue created에서 에러남',err);
     }
     
-
-    //  var d = moment().tz('America/Toronto');
-    //  console.log(d);
-
   },
+  // mounted(){
+  //   this.dayStatusControl()
+  // },
   methods:{
     // 현재 위치 파악하는 함수
     async currentLocation(){
@@ -128,12 +140,10 @@ export default {
       }
     },
     // 날짜 출력 함수
-    todayForm(date){
-      return todayFormat(date)
+    todayForm(date,timezone){
+      return localDateFormat(date,timezone)
     },
-    sysTimeForm(date){
-      return timeFormat(date)
-    },
+    // 새로고침이벤트
     async DataRefreshEvent(){
       console.log('refresh 이벤트 테스트중');
       await this.$store.dispatch('FETCH_WEATHER', `q=${this.currentCity}`)
@@ -143,18 +153,29 @@ export default {
     currentTimeForm(){
       return currentTimeFormat(new Date())
     },
-    momentTime(){
-      const date = new Date(this.weatherData.sys.sunrise * 1000)
-      const sunrise = moment(date).tz(this.timezone).format()
-
-      return sunrise
+    // 일출, 일몰 시간 현지 시간에 맞게 출력
+    dayTimeSet(date,timezone,position){
+      return dayTimeSetting(date,timezone,position)
     },
-    daySunset(){
-      const date = new Date(this.weatherData.sys.sunset * 1000)
-      const sunset = moment(date).tz(this.timezone).format()
+    dayStatusControl(){
+      const current = dayTimeSetting(this.currentTime,this.timezone,false)
+      const sunrise = dayTimeSetting(this.sunrise,this.timezone,false)
+      const sunset = dayTimeSetting(this.sunset,this.timezone,false)
+      console.log('타임셋팅',current);
+      console.log('선라이즈',sunrise);
+      console.log('선셋',sunset);
 
-      return sunset
+      if( current >= sunset && current <= sunrise ) {
+        this.$store.commit('SET_DAY','night')
+        console.log('저녁');
+      }else{
+        this.$store.commit('SET_DAY','day')
+        console.log('낮');
+      }
+
     }
+
+
     // timezoneOffset(){
     //   // d = new Date()
     //   // localTime = d.getTime()

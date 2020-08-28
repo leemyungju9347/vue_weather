@@ -157,8 +157,8 @@
     display: block;
     padding-bottom: 10px; 
     text-shadow:4px 4px 4px #838383a6
-
 }
+.today-weather > .detail-weather > li > span { display: block;}
 .today-weather > .detail-weather > li.m-temp > i {
     font-size: 2em;
 }

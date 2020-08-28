@@ -20,7 +20,11 @@ export default new Vuex.Store({
     // 주간 날씨 데이터
     weeklyData:[],
     weekly:null,
-    timezone:''
+    timezone:'',
+    sunrise:'',
+    sunset:'',
+    currentTime:'',
+    dayStatus:'day'
   },
   mutations: {
     SET_WEATHER(state,data){
@@ -30,6 +34,8 @@ export default new Vuex.Store({
       state.location.lat = data.coord.lat
       state.location.lon = data.coord.lon
       state.currentCity = data.name
+      state.sunrise = data.sys.sunrise
+      state.sunset = data.sys.sunset
     },
     SET_CITY(state,city){
       state.city = city
@@ -39,6 +45,9 @@ export default new Vuex.Store({
       state.weeklyData = data.daily
       state.timezone = data.timezone
     },
+    SET_DAY(state,data){
+      state.dayStatus = data
+    }
   },
   actions: {
     // 현재 날씨 데이터
@@ -57,6 +66,7 @@ export default new Vuex.Store({
     // 주간 날씨 데이터
     async FETCH_WEEKLY_WEATHER({commit},location){
       try {
+        
         const response = await weeklyWeather(location)
         
         commit('SET_WEEKLY',response.data)

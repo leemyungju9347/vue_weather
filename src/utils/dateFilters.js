@@ -1,7 +1,7 @@
-// 월
-let monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+import moment from '@/plugin/moment'
 
-// 요일
+// 날짜 형식에 맞게 출력해주는 필터
+let monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
 let dayNames = ['Sunday','MonDay','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 // '요일 날짜 월' 형식의 포맷
@@ -12,6 +12,14 @@ function todayFormat(dt) {
     let date = today.getDate();
 
     return `${day} ${date} ${month}`
+}
+
+function localDateFormat(dt,timezone){
+    const today = new Date(dt * 1000);
+    // const date = moment.tz(today,timezone).format('LLLL')
+    const date = moment.tz(today,timezone).format('dddd DD MMMM, HH : mm A')
+
+    return date
 }
 
 // '시간 : 분' 형식의 시간 포맷
@@ -44,6 +52,7 @@ function dateFormat(dt){
     return `${date} ${month}`
 }
 
+// 현재 시간 포맷
 function currentTimeFormat(date) {
     let hours = date.getHours();
     hours = hours >= 10 ? hours :`0${hours}`
@@ -54,4 +63,22 @@ function currentTimeFormat(date) {
     return `${date.toDateString()}  ${hours} : ${minutes} : ${seconds}`
 }
 
-export {todayFormat,timeFormat,daysFormat,dateFormat,currentTimeFormat}
+// 일출, 일몰 포맷 함수
+function dayTimeSetting(date,timezone,position) {
+    const today = new Date(date * 1000);
+    const dayTimes = moment.tz(today,timezone).format('HH : mm A')
+    const dayHours = moment.tz(today,timezone).format('HH')
+    return position ? dayTimes : dayHours
+}
+
+// 늦게로드되길래 store에서 직접 호출했으나 똑같았음 일단 주석처리
+// function sunriseCheck() {
+//     const sunrise = store.state.sunrise;
+//     const timezone = store.state.timezone;
+//     const today = new Date(sunrise * 1000);
+//     const dayTime = moment.tz(today,timezone).format('HH : mm')
+
+//     return dayTime
+// }
+
+export {todayFormat,timeFormat,daysFormat,dateFormat,currentTimeFormat,dayTimeSetting,localDateFormat}

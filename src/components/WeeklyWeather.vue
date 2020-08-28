@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {daysFormat,dateFormat} from '@/utils/filters'
+import {daysFormat,dateFormat} from '@/utils/dateFilters'
 export default {
   computed:{
     weeklyData(){
