@@ -39,17 +39,16 @@ export default {
     bodyClassControl() {
       if (this.app !== null) {
         // 3초뒤에 적용되도록 셋타임아웃을 줌 저녁시간대에 체크해봐야함.
-        setTimeout(() => {
-          const body = this.app.parentNode;
-          const status = this.$store.state.dayStatus;
-          // dayStatus 가 낮이면
-          if (status === 'day') {
-            body.classList.remove('night');
-            // 밤이면
-          } else {
-            body.classList.add('night');
-          }
-        }, 3000);
+
+        const body = this.app.parentNode;
+        const status = this.$store.state.dayStatus;
+        // dayStatus 가 낮이면
+        if (status === 'day') {
+          body.classList.remove('night');
+          // 밤이면
+        } else {
+          body.classList.add('night');
+        }
       }
     }
   }

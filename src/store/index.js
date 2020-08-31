@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { currentWeather, weeklyWeather } from '@/api/index';
+import bus from '@/utils/bus';
 
 Vue.use(Vuex);
 
@@ -54,13 +55,21 @@ export default new Vuex.Store({
     async FETCH_WEATHER({ commit }, cityName) {
       try {
         console.log('위치는 store 시티네임', cityName);
+
         const response = await currentWeather(cityName);
 
         commit('SET_WEATHER', response.data);
-
+        console.log(response);
         return response;
       } catch (error) {
         console.log('여기는 스토어 fetch current weather', error);
+        console.log('에러메세지', error.message);
+        console.log('에러코드', error.status);
+        if (error.message === 'Request failed with status code 404') {
+          console.log('😁😁', 'Request failed with status code 404');
+          const errMessage = '잘못된 정보입니다. 다시 입력해주세요.';
+          bus.$emit('show:toast', errMessage);
+        }
       }
     },
     // 주간 날씨 데이터

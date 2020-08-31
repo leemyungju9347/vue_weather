@@ -1,7 +1,7 @@
 <template>
   <!-- 주간 날씨 -->
   <div class="weekly-weather" v-if="weeklyData">
-    <ul>
+    <ul v-if="weeklyDataCheck">
       <li v-for="(item, index) in weeklyData" :key="index">
         <!-- 날짜 -->
         <strong>{{ weeklyDay(item.dt) }}</strong>
@@ -20,15 +20,26 @@
         <p class="ww-desc">{{ item.weather[0].description }}</p>
       </li>
     </ul>
+    <div class="warning" v-else>
+      <i class="warning-icon fas fa-exclamation-circle"></i>{{ logMessage }}
+    </div>
   </div>
 </template>
 
 <script>
 import { daysFormat, dateFormat } from '@/utils/dateFilters';
 export default {
+  data() {
+    return {
+      logMessage: '주간 데이터를 불러올 수 없습니다.'
+    };
+  },
   computed: {
     weeklyData() {
       return this.$store.state.weeklyData;
+    },
+    weeklyDataCheck() {
+      return this.weeklyData.length !== 0;
     }
   },
   methods: {
@@ -36,6 +47,7 @@ export default {
     weeklyDay(dt) {
       return daysFormat(dt);
     },
+
     // 간단한 날짜
     weeklyDate(dt) {
       return dateFormat(dt);

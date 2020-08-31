@@ -1,71 +1,75 @@
 <template>
   <!-- 오늘의 날씨 -->
-  <div
-    v-bind="dayStatusControl()"
-    class="today-weather"
-    v-if="weatherData && weatherMain && weatherInfo"
-  >
-    <!-- 간단한 날씨 정보 -->
-    <div class="summary-weather">
-      <!-- 도시, 날짜 -->
-      <h3>
-        <i class="fas fa-map-marker-alt"></i>
-        {{ weatherData.name }} , {{ weatherData.sys.country }}
-      </h3>
-      <!-- 해당 도시의 현재 시간까지 출력하기. -->
-      <p class="date">{{ todayForm(currentTime, timezone) }}</p>
-      <!-- 날씨정보 -->
-      <div class="weather-info">
-        <i
-          class="icon wi main-icon"
-          :class="`wi-owm-${dayStatus}-${weatherInfo.id}`"
-        ></i>
-        <strong class="temp">{{ weatherMain.temp }} °C</strong>
-        <strong class="weather-desc">{{ weatherInfo.description }}</strong>
+  <div v-bind="dayStatusControl()" class="today-weather">
+    <!-- weatherData && weatherMain && weatherInfo -->
+    <div
+      class="today-weather-cont"
+      v-if="weatherData && weatherMain && weatherInfo"
+    >
+      <!-- 간단한 날씨 정보 -->
+      <div class="summary-weather">
+        <!-- 도시, 날짜 -->
+        <h3>
+          <i class="fas fa-map-marker-alt"></i>
+          {{ weatherData.name }} , {{ weatherData.sys.country }}
+        </h3>
+        <!-- 해당 도시의 현재 시간까지 출력하기. -->
+        <p class="date">{{ todayForm(currentTime, timezone) }}</p>
+        <!-- 날씨정보 -->
+        <div class="weather-info">
+          <i
+            class="icon wi main-icon"
+            :class="`wi-owm-${dayStatus}-${weatherInfo.id}`"
+          ></i>
+          <strong class="temp">{{ weatherMain.temp }} °C</strong>
+          <strong class="weather-desc">{{ weatherInfo.description }}</strong>
+        </div>
+      </div>
+      <!-- 자세한 날씨 정보 -->
+      <ul class="detail-weather">
+        <li class="m-temp">
+          <i class="wi wi-direction-up"></i>
+          <span>max</span>
+          {{ weatherMain.temp_max }} °C
+        </li>
+        <li class="m-temp">
+          <i class="wi wi-direction-down"></i>
+          <span>min</span>
+          {{ weatherMain.temp_min }} °C
+        </li>
+        <li>
+          <i class="wi wi-humidity"></i>
+          <span>humidity</span>
+          {{ weatherMain.humidity }} %
+        </li>
+        <li>
+          <i class="wi wi-strong-wind"></i>
+          <span>wind</span>
+          {{ weatherData.wind.speed }} m/s
+        </li>
+        <li>
+          <i class="wi wi-sunrise"></i>
+          <span>sunrise</span>
+          {{ dayTimeSet(sunrise, timezone, true) }}
+        </li>
+        <li>
+          <i class="wi wi-sunset"></i>
+          <span>sunset</span>
+          {{ dayTimeSet(sunset, timezone, true) }}
+        </li>
+      </ul>
+      <!-- 새로고침 기능 보류 -->
+      <div class="refresh-weather">
+        <p class="refresh-time">{{ currentTimeForm() }}</p>
+        <button class="refresh-btn" @click.prevent="DataRefreshEvent()">
+          <i class="wi wi-refresh"></i>
+        </button>
       </div>
     </div>
-    <!-- 자세한 날씨 정보 -->
-    <ul class="detail-weather">
-      <li class="m-temp">
-        <i class="wi wi-direction-up"></i>
-        <span>max</span>
-        {{ weatherMain.temp_max }} °C
-      </li>
-      <li class="m-temp">
-        <i class="wi wi-direction-down"></i>
-        <span>min</span>
-        {{ weatherMain.temp_min }} °C
-      </li>
-      <li>
-        <i class="wi wi-humidity"></i>
-        <span>humidity</span>
-        {{ weatherMain.humidity }} %
-      </li>
-      <li>
-        <i class="wi wi-strong-wind"></i>
-        <span>wind</span>
-        {{ weatherData.wind.speed }} m/s
-      </li>
-      <li>
-        <i class="wi wi-sunrise"></i>
-        <span>sunrise</span>
-        {{ dayTimeSet(sunrise, timezone, true) }}
-      </li>
-      <li>
-        <i class="wi wi-sunset"></i>
-        <span>sunset</span>
-        {{ dayTimeSet(sunset, timezone, true) }}
-      </li>
-    </ul>
-    <!-- 새로고침 기능 보류 -->
-    <div class="refresh-weather">
-      <p class="refresh-time">{{ currentTimeForm() }}</p>
-      <button class="refresh-btn" @click.prevent="DataRefreshEvent()">
-        <i class="wi wi-refresh"></i>
-      </button>
+    <div class="warning" v-else>
+      <i class="warning-icon fas fa-exclamation-circle"></i>{{ logMessage }}
     </div>
   </div>
-  <!-- <div v-else>데이터가 없을때</div> -->
 </template>
 
 <script>
@@ -83,7 +87,9 @@ export default {
         lat: null,
         lon: null
       },
-      dayTime: 'day'
+      dayTime: 'day',
+      logMessage: '',
+      status: false
     };
   },
   computed: {
@@ -117,6 +123,9 @@ export default {
     },
     dayStatus() {
       return this.$store.state.dayStatus;
+    },
+    timeCondition() {
+      return this.currentTime && this.sunrise && this.sunset;
     }
   },
   async created() {
@@ -133,7 +142,10 @@ export default {
     async currentLocation() {
       // 위치정보가 있으면
       if (navigator.geolocation) {
+        console.log(navigator);
+        console.log(navigator.geolocation);
         await navigator.geolocation.getCurrentPosition(position => {
+          console.log(position);
           this.location.lat = position.coords.latitude;
           this.location.lon = position.coords.longitude;
 
@@ -144,18 +156,30 @@ export default {
           );
           // 주간 날씨 위도 경도
           this.$store.dispatch('FETCH_WEEKLY_WEATHER', this.location);
-        });
-
+          this.logMessage = '';
+        }, this.showError);
         // 위치정보가 없을때 에러처리 해줄것
         // 1. 초기값 서울/한국의 위치정보를 저장해놓고 출력하도록
         // 2. 인풋값이 입력되면 출력하도록
       } else {
-        console.log('위치 정보가 없어요!!!');
+        console.log('GPS를 지원하지 않습니다.');
+        this.logMessage = 'GPS를 지원하지 않습니다.';
+        console.log(this.logMessage);
       }
     },
     // 날짜 출력 함수
     todayForm(date, timezone) {
       return localDateFormat(date, timezone);
+    },
+    showError(error) {
+      console.log('에러발생', error);
+      if (error.code == 1) {
+        console.log('에러코드 1', error);
+        this.logMessage = '위치 정보를 찾아올 수 없습니다. GPS를 허용해주세요.';
+        console.log(this.logMessage);
+      } else {
+        this.logMessage = '위치 정보를 찾기를 실패했습니다.';
+      }
     },
     // 새로고침이벤트
     async DataRefreshEvent() {
@@ -172,14 +196,16 @@ export default {
       return dayTimeSetting(date, timezone, position);
     },
     dayStatusControl() {
-      const current = dayTimeSetting(this.currentTime, this.timezone, false);
-      const sunrise = dayTimeSetting(this.sunrise, this.timezone, false);
-      const sunset = dayTimeSetting(this.sunset, this.timezone, false);
+      if (this.timeCondition) {
+        const current = dayTimeSetting(this.currentTime, this.timezone, false);
+        const sunrise = dayTimeSetting(this.sunrise, this.timezone, false);
+        const sunset = dayTimeSetting(this.sunset, this.timezone, false);
 
-      if (current > sunset || current < sunrise) {
-        this.$store.commit('SET_DAY', 'night');
-      } else {
-        this.$store.commit('SET_DAY', 'day');
+        if (current > sunset || current < sunrise) {
+          this.$store.commit('SET_DAY', 'night');
+        } else {
+          this.$store.commit('SET_DAY', 'day');
+        }
       }
     }
   }

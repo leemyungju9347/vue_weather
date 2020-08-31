@@ -21,6 +21,7 @@ body {
 	/* background:linear-gradient(to right,#e7c7c7,#81A2D7); */
 	/* 저녁버전 */
 	/* background: linear-gradient(to bottom,#424C82,#AB9BD5); */
+	height: 145vh;
 
 }
 body.night {
