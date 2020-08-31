@@ -53,6 +53,7 @@ export default new Vuex.Store({
     // 현재 날씨 데이터
     async FETCH_WEATHER({ commit }, cityName) {
       try {
+        console.log('위치는 store 시티네임', cityName);
         const response = await currentWeather(cityName);
 
         commit('SET_WEATHER', response.data);

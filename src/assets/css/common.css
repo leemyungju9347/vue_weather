@@ -51,15 +51,18 @@
     box-shadow: 5px 5px 5px 5px #7b7b7b54;
     background: #ffffff;
     color: #242424;
-
 }
+
+.night .app-header > form > input{
+    box-shadow: 5px 5px 5px 5px #4a4a4a54;
+}
+
 .app-header > form > button {
     border: unset;
     background-color: unset;
     position: absolute;
     right: 23px;
-    /* color: #fff; */
-    top: 46px;
+    top: 43px;
     color: #555555;
 
 }
@@ -81,15 +84,26 @@
     box-shadow: 5px 5px 5px 5px #867b7b2b;
     padding:20px 20px 50px;
 }
+
+.night .today-weather {
+    box-shadow: 5px 5px 5px 5px #6b6b6b2b;
+}
+
 .today-weather > .summary-weather {
     width:60%;
     padding: 10px 0;
     padding-left:50px;
 }
+
 .today-weather > .summary-weather > h3 {
     font-size: 3em;
     text-shadow:4px 4px 4px #838383a6
 }
+
+.night .today-weather > .summary-weather > h3 {
+    text-shadow:4px 4px 4px #4848487d;
+}
+
 .today-weather > .summary-weather > h3 > i {
     margin-right: 10px;
 }
@@ -102,7 +116,6 @@
     padding-bottom: 30px;
     position: relative;
     margin: 230px 0 0 10px;
-
 }
 
 .today-weather > .summary-weather > .weather-info > * {
@@ -111,8 +124,6 @@
 }
 
 .today-weather > .summary-weather > .weather-info > .main-icon {
-    /* font-size:15em;
-    text-shadow:4px 4px 4px #838383a6 */
     font-size: 15em;
     text-shadow: 4px 4px 4px #838383a6;
     display: block;
@@ -120,21 +131,18 @@
     left: 260px;
     top: -95px;
 }
+.night .today-weather > .summary-weather > .weather-info > .main-icon {
+    text-shadow: 4px 4px 4px #5a5a5aa6;
+}
+
 .today-weather > .summary-weather > .weather-info > .temp {
     font-size: 3em;
-    /* top: 15px;
-    position: absolute;
-    left: 290px; */
     font-size: 3em;
     top: 15px;
-    /* position: absolute; */
     left: 290px;
 }
 .today-weather > .summary-weather > .weather-info > .weather-desc {
     font-size: 2em;
-    /* margin-top: 30px; */
-    /* margin-left: 50px; */
-    /* position: absolute; */
     top: 52px;
     left: 240px;
 
@@ -192,23 +200,22 @@
 
 /*------------ weekly-weather --------------*/
 .weekly-weather {
-    /* background-color: darkkhaki; */
     margin-top:100px;
-    /* border: 1px solid lime; */
     padding:40px 30px;
     text-align: center;
     background-color: #eee3;
     border-radius: 30px;
     box-shadow: 5px 5px 5px 5px #867b7b2b;
+}
 
+.night .weekly-weather { 
+    box-shadow: 5px 5px 5px 5px #7676762b;
 }
 
 .weekly-weather > ul {
-    /* border: 1px solid blue; */
     display: flex;
 }
 .weekly-weather > ul > li{
-    /* background-color: lightgray; */
     width: 12.5%;
     margin: 5px 0;
     color: #fff;
@@ -223,11 +230,10 @@
 
 .weekly-weather > ul > li > .date {
     font-size: 0.9em;
-    display: none;
+    color:#242424
 }
 
 .weekly-weather > ul > li > .ww-temp {
-    /* background-color: lightseagreen; */
     margin-top: 20px;
 }
 
@@ -251,7 +257,6 @@
     font-size:5em;
     margin-top:30px;
     display: block;
-    /* color: #fff; */
     text-shadow: 4px 4px 4px #838383a6;
 }
 
@@ -260,4 +265,31 @@
     margin:30px auto 0;
     color: #fff;
     font-size: 1.2em;
+}
+
+/*------------ Toast-popup --------------*/
+.toast-popup {
+    position: fixed;
+    top:-80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height:60px;
+    background-color: #242424;
+    color: #fff;
+    border-radius: 15px;
+    display: flex;
+	justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2);   
+    transition: all 750ms ease;
+}
+
+.toast-popup > i {
+    margin-right: 10px;
+}
+
+.toast-popup.show {
+    top:30px;
+
 }

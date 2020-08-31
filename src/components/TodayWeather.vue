@@ -18,7 +18,7 @@
       <div class="weather-info">
         <i
           class="icon wi main-icon"
-          :class="`wi-owm-${dayTime}-${weatherInfo.id}`"
+          :class="`wi-owm-${dayStatus}-${weatherInfo.id}`"
         ></i>
         <strong class="temp">{{ weatherMain.temp }} °C</strong>
         <strong class="weather-desc">{{ weatherInfo.description }}</strong>
@@ -65,7 +65,7 @@
       </button>
     </div>
   </div>
-  <div v-else>데이터가 없을때</div>
+  <!-- <div v-else>데이터가 없을때</div> -->
 </template>
 
 <script>
@@ -114,6 +114,9 @@ export default {
     // 현재 국가 위치타임존
     timezone() {
       return this.$store.state.timezone;
+    },
+    dayStatus() {
+      return this.$store.state.dayStatus;
     }
   },
   async created() {
@@ -124,9 +127,7 @@ export default {
       console.log('TodayWeather.vue created에서 에러남', err);
     }
   },
-  // mounted(){
-  //   this.dayStatusControl()
-  // },
+  mounted() {},
   methods: {
     // 현재 위치 파악하는 함수
     async currentLocation() {
@@ -174,62 +175,13 @@ export default {
       const current = dayTimeSetting(this.currentTime, this.timezone, false);
       const sunrise = dayTimeSetting(this.sunrise, this.timezone, false);
       const sunset = dayTimeSetting(this.sunset, this.timezone, false);
-      console.log('타임셋팅', current);
-      console.log('선라이즈', sunrise);
-      console.log('선셋', sunset);
 
-      if (current >= sunset && current <= sunrise) {
+      if (current > sunset || current < sunrise) {
         this.$store.commit('SET_DAY', 'night');
-        console.log('저녁');
       } else {
         this.$store.commit('SET_DAY', 'day');
-        console.log('낮');
       }
     }
-
-    // timezoneOffset(){
-    //   // d = new Date()
-    //   // localTime = d.getTime()
-    //   // localOffset = d.getTimezoneOffset() * 60000
-    //   // utc = localTime + localOffset
-    //   // var atlanta = utc + (1000 * -14400)
-    //   // nd = new Date(atlanta)
-    //   let date = new Date()
-    //   let localTime = date.getTime() // 현지시간얻기
-    //   let localOffset = date.getTimezoneOffset() * 60000 // 로컬 offset
-    //   let utc = localTime + localOffset
-    //   let city = utc + ( 1000 * this.weatherData.timezone )
-
-    //   let nd = new Date(city)
-
-    //   return nd
-    // },
-    // offset(){
-    //   // let d = new Date(this.weatherData.dt * 1000)
-    //   // let utc = d.getTime() + ( this.weatherData.timezone * 60000)
-
-    //   // var nd = new Date(utc + (3600000*this.weatherData.timezone));
-    //   // console.log(nd);
-
-    //   const timezone = {
-    //     timezone : this.$store.state.timezone
-    //   }
-    //   const sunset = new Date(this.weatherData.sys.sunrise * 1000).toLocaleString('en',timezone)
-
-    //   let currentUtcTime = new Date(this.weatherData.sys.sunrise * 1000)
-    //   const currentDateTimeCentralTimeZone = new Date(currentUtcTime.toLocaleString('en-US',{timezone: 'Europe/London'}));
-    //   console.log('시카고',currentDateTimeCentralTimeZone);
-    //   // const sunrise = new Date(this.weatherData.sys.sunrise * 1000).toLocaleString('en', { timeZone: city })
-
-    //   // console.log(sunrise);
-    //   // console.log(sunset);
-    //   console.log(sunset);
-    //   return currentDateTimeCentralTimeZone
-    // }
-
-    // dayTimeCheck(){
-    //   return new Date().sunset(37,127)
-    // }
   }
 };
 </script>
