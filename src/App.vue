@@ -8,6 +8,8 @@
 <script>
 import AppHeader from '@/components/common/AppHeader.vue';
 import ToastPopup from '@/components/common/ToastPopup.vue';
+import { mapState } from 'vuex';
+
 export default {
   components: { AppHeader, ToastPopup },
   data() {
@@ -16,21 +18,7 @@ export default {
     };
   },
   computed: {
-    weatherData() {
-      return this.$store.state.weatherData;
-    },
-    currentTime() {
-      return this.weatherData.dt;
-    },
-    sunrise() {
-      return this.weatherData.sys.sunrise;
-    },
-    sunset() {
-      return this.weatherData.sys.sunset;
-    },
-    timezone() {
-      return this.$store.state.timezone;
-    }
+    ...mapState(['dayStatus'])
   },
   mounted() {
     this.app = this.$el;
@@ -41,9 +29,8 @@ export default {
         // 3초뒤에 적용되도록 셋타임아웃을 줌 저녁시간대에 체크해봐야함.
 
         const body = this.app.parentNode;
-        const status = this.$store.state.dayStatus;
         // dayStatus 가 낮이면
-        if (status === 'day') {
+        if (this.dayStatus === 'day') {
           body.classList.remove('night');
           // 밤이면
         } else {

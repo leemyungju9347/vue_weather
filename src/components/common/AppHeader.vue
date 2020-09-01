@@ -11,6 +11,7 @@
 <script>
 import bus from '@/utils/bus';
 import { inputValidation } from '@/utils/validation';
+import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -19,24 +20,23 @@ export default {
     };
   },
   computed: {
-    location() {
-      return this.$store.state.location;
-    },
+    ...mapState(['location']),
     inputValidCheck() {
       return inputValidation(this.city);
     }
   },
   methods: {
-    // 영어만 입력되도록 예외처리
+    ...mapActions(['FETCH_WEATHER', 'FETCH_WEEKLY_WEATHER']),
+    // 검색값 입력 함수
     async inputCity() {
       // 값이 있으면
       if (this.city) {
         // 영어로 입력됐으면
         if (this.inputValidCheck) {
           // 현재 날씨
-          await this.$store.dispatch('FETCH_WEATHER', `q=${this.city}`);
+          await this.FETCH_WEATHER(`q=${this.city}`);
+          await this.FETCH_WEEKLY_WEATHER(this.location);
           // 주간 날씨
-          await this.$store.dispatch('FETCH_WEEKLY_WEATHER', this.location);
           this.message = '';
 
           // 영어로 입력되지 않으면

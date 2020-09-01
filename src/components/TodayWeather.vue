@@ -1,7 +1,6 @@
 <template>
   <!-- 오늘의 날씨 -->
   <div v-bind="dayStatusControl()" class="today-weather">
-    <!-- weatherData && weatherMain && weatherInfo -->
     <div
       class="today-weather-cont"
       v-if="weatherData && weatherMain && weatherInfo"
@@ -78,6 +77,7 @@ import {
   dayTimeSetting,
   localDateFormat
 } from '@/utils/dateFilters';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
@@ -87,46 +87,25 @@ export default {
         lat: null,
         lon: null
       },
-      dayTime: 'day',
-      logMessage: '',
-      status: false
+      logMessage: ''
     };
   },
   computed: {
-    // 날씨 데이터
-    weatherData() {
-      return this.$store.state.weatherData;
-    },
-    weatherInfo() {
-      return this.$store.state.weatherInfo;
-    },
-    weatherMain() {
-      return this.$store.state.weatherMain;
-    },
-    // 현재 도시 위치
-    currentCity() {
-      return this.$store.state.currentCity;
-    },
-    // 일출 일몰
-    sunset() {
-      return this.weatherData.sys.sunset;
-    },
-    sunrise() {
-      return this.weatherData.sys.sunrise;
-    },
-    currentTime() {
-      return this.$store.state.weatherData.dt;
-    },
-    // 현재 국가 위치타임존
-    timezone() {
-      return this.$store.state.timezone;
-    },
-    dayStatus() {
-      return this.$store.state.dayStatus;
-    },
-    timeCondition() {
-      return this.currentTime && this.sunrise && this.sunset;
-    }
+    // state
+    ...mapState([
+      'weatherData',
+      'weatherInfo',
+      'weatherMain',
+      'currentCity',
+      'timezone',
+      'dayStatus',
+      'sunset',
+      'sunrise',
+      'currentTime'
+    ]),
+    // getters
+    ...mapGetters(['timeCondition'])
+    //init logmessage
   },
   async created() {
     try {
@@ -138,47 +117,39 @@ export default {
   },
   mounted() {},
   methods: {
+    ...mapActions(['FETCH_WEATHER', 'FETCH_WEEKLY_WEATHER']),
     // 현재 위치 파악하는 함수
     async currentLocation() {
       // 위치정보가 있으면
       if (navigator.geolocation) {
-        console.log(navigator);
-        console.log(navigator.geolocation);
+        // 현재 위치 불러오기
         await navigator.geolocation.getCurrentPosition(position => {
-          console.log(position);
           this.location.lat = position.coords.latitude;
           this.location.lon = position.coords.longitude;
-
+          // console.log('액션스 팻치웨더', this.FETCH_WEATHER());
           // 현재 날씨 위도 경도
-          this.$store.dispatch(
-            'FETCH_WEATHER',
+          this.FETCH_WEATHER(
             `lat=${this.location.lat}&lon=${this.location.lon}`
           );
+          this.FETCH_WEEKLY_WEATHER(this.location);
           // 주간 날씨 위도 경도
-          this.$store.dispatch('FETCH_WEEKLY_WEATHER', this.location);
           this.logMessage = '';
         }, this.showError);
-        // 위치정보가 없을때 에러처리 해줄것
-        // 1. 초기값 서울/한국의 위치정보를 저장해놓고 출력하도록
-        // 2. 인풋값이 입력되면 출력하도록
       } else {
-        console.log('GPS를 지원하지 않습니다.');
         this.logMessage = 'GPS를 지원하지 않습니다.';
-        console.log(this.logMessage);
       }
     },
     // 날짜 출력 함수
     todayForm(date, timezone) {
       return localDateFormat(date, timezone);
     },
+    // GPS 에러처리
     showError(error) {
       console.log('에러발생', error);
       if (error.code == 1) {
-        console.log('에러코드 1', error);
         this.logMessage = '위치 정보를 찾아올 수 없습니다. GPS를 허용해주세요.';
-        console.log(this.logMessage);
       } else {
-        this.logMessage = '위치 정보를 찾기를 실패했습니다.';
+        this.logMessage = '위치 정보 찾기를 실패했습니다.';
       }
     },
     // 새로고침이벤트
@@ -195,6 +166,7 @@ export default {
     dayTimeSet(date, timezone, position) {
       return dayTimeSetting(date, timezone, position);
     },
+    // 낮, 밤 제어
     dayStatusControl() {
       if (this.timeCondition) {
         const current = dayTimeSetting(this.currentTime, this.timezone, false);

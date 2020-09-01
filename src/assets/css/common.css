@@ -11,6 +11,21 @@
     margin-right: 10px;
 }
 
+.fade{
+    animation: fadein 0.7s;
+    -webkit-animation: fadein 0.7s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
+
 /*------------ app-header --------------*/
 .app-header{height: 100px;}
 .app-header > form { 
@@ -84,7 +99,7 @@
     border-radius: 30px;
     box-shadow: 5px 5px 5px 5px #867b7b2b;
     padding:20px 20px 50px;
-    height: 61vh;
+    height: 65vh;
 
 }
 
@@ -293,6 +308,7 @@
     align-items: center;
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2);   
     transition: all 750ms ease;
+    /* transition: all 750ms ease-out; */
 }
 
 .toast-popup > i {
@@ -301,6 +317,7 @@
 
 .toast-popup.show {
     top:30px;
+    /* transition: all 500ms ease-in-out; */
 
 }
 

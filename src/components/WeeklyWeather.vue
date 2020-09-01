@@ -28,6 +28,7 @@
 
 <script>
 import { daysFormat, dateFormat } from '@/utils/dateFilters';
+import { mapState, mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -35,19 +36,14 @@ export default {
     };
   },
   computed: {
-    weeklyData() {
-      return this.$store.state.weeklyData;
-    },
-    weeklyDataCheck() {
-      return this.weeklyData.length !== 0;
-    }
+    ...mapState(['weeklyData']),
+    ...mapGetters(['weeklyDataCheck'])
   },
   methods: {
     // 요일
     weeklyDay(dt) {
       return daysFormat(dt);
     },
-
     // 간단한 날짜
     weeklyDate(dt) {
       return dateFormat(dt);

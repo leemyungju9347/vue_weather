@@ -88,8 +88,7 @@ function dayTimeSetting(date, timezone, position) {
   const today = new Date(date * 1000);
   const dayTimes = moment.tz(today, timezone).format('HH : mm A');
   const dayHours = moment.tz(today, timezone).format('HH');
-  // console.log('데이트필터 인 타임존', timezone);
-  // console.log('데이트필터😋', dayHours);
+
   return position ? dayTimes : dayHours;
 }
 
