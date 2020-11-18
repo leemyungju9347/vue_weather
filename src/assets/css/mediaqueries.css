@@ -1,0 +1,22 @@
+@media screen and (max-width:1023px) {
+    body {background: mediumaquamarine;}
+    .weather-wrap {
+        width: 95%;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .summary-weather {
+        padding-left: 0;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .summary-weather > .main-icon {
+        margin-top: 90px;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .summary-weather > .wther-txt > strong {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width:768px) {
+    body {background: orangered;}
+}

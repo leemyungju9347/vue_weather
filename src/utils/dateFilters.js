@@ -1,5 +1,4 @@
 import moment from '@/plugin/moment';
-
 // 날짜 형식에 맞게 출력해주는 필터
 let monthNames = [
   'January',
@@ -38,6 +37,13 @@ function todayFormat(dt) {
 function localDateFormat(dt, timezone) {
   const today = new Date(dt * 1000);
   // const date = moment.tz(today,timezone).format('LLLL')
+  const date = moment.tz(today, timezone).format('dddd DD MMMM, HH : mm A');
+
+  return date;
+}
+
+function localCurrentDateFormat(timezone) {
+  const today = new Date();
   const date = moment.tz(today, timezone).format('dddd DD MMMM, HH : mm A');
 
   return date;
@@ -109,5 +115,6 @@ export {
   dateFormat,
   currentTimeFormat,
   dayTimeSetting,
-  localDateFormat
+  localDateFormat,
+  localCurrentDateFormat
 };

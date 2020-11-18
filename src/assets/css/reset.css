@@ -12,22 +12,16 @@ body {
 	margin:0;
 	padding:0;
 	word-break: keep-all;
-	background-color:lightyellow;
-	/* height:200vh; */
-	/* background: linear-gradient(to bottom,#e7c7c7,#bab3d5); */
 	font-weight: bold;
 	background:linear-gradient(to bottom,#9e90d2,#d09d9d);
-	/* background:linear-gradient(to bottom,#AB9BD5,#424C82); */
-	/* background:linear-gradient(to right,#e7c7c7,#81A2D7); */
-	/* 저녁버전 */
-	/* background: linear-gradient(to bottom,#424C82,#AB9BD5); */
-	height: 155vh;
-
+	/* height: 155vh; */
+	min-height: 100vh;
 }
+
 body.night {
 	background: linear-gradient(to bottom,#424C82,#AB9BD5);
-
 }
+
 h1, h2, h3, h4, h5, h6 {font-size:1em;}
 h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, form, fieldset, blockquote, address, table, thead, tbody, tfoot, tr, td, caption {
 	margin:0;

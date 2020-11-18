@@ -45,5 +45,6 @@ export default {
 @import url('./weather-icons-master/css/weather-icons.css');
 @import './assets/css/reset.css';
 @import './assets/css/common.css';
+@import './assets/css/mediaqueries.css';
 @import './assets/css/weatherIcon.css';
 </style>

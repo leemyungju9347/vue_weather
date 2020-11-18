@@ -21,7 +21,9 @@
       </li>
     </ul>
     <div class="warning" v-else>
-      <i class="warning-icon fas fa-exclamation-circle"></i>{{ logMessage }}
+      <p>
+        <i class="warning-icon fas fa-exclamation-circle"></i>{{ logMessage }}
+      </p>
     </div>
   </div>
 </template>

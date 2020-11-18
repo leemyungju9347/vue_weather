@@ -5,68 +5,62 @@
       class="today-weather-cont"
       v-if="weatherData && weatherMain && weatherInfo"
     >
+      <h3 class="cur-location">
+        <i class="fas fa-map-marker-alt"></i>
+        {{ weatherData.name }} , {{ weatherData.sys.country }}
+      </h3>
+      <p class="date">{{ localCurrentDate(timezone) }}</p>
       <!-- 간단한 날씨 정보 -->
-      <div class="summary-weather">
-        <!-- 도시, 날짜 -->
-        <h3>
-          <i class="fas fa-map-marker-alt"></i>
-          {{ weatherData.name }} , {{ weatherData.sys.country }}
-        </h3>
-        <!-- 해당 도시의 현재 시간까지 출력하기. -->
-        <p class="date">{{ todayForm(currentTime, timezone) }}</p>
-        <!-- 날씨정보 -->
-        <div class="weather-info">
+      <div class="weather-info">
+        <div class="summary-weather">
           <i
             class="icon wi main-icon"
             :class="`wi-owm-${dayStatus}-${weatherInfo.id}`"
           ></i>
-          <strong class="temp">{{ weatherMain.temp }} °C</strong>
-          <strong class="weather-desc">{{ weatherInfo.description }}</strong>
+          <p class="wther-txt">
+            <strong class="temp">{{ weatherMain.temp }} °C</strong>
+            <strong class="weather-desc">{{ weatherInfo.description }}</strong>
+          </p>
         </div>
-      </div>
-      <!-- 자세한 날씨 정보 -->
-      <ul class="detail-weather">
-        <li class="m-temp">
-          <i class="wi wi-direction-up"></i>
-          <span>max</span>
-          {{ weatherMain.temp_max }} °C
-        </li>
-        <li class="m-temp">
-          <i class="wi wi-direction-down"></i>
-          <span>min</span>
-          {{ weatherMain.temp_min }} °C
-        </li>
-        <li>
-          <i class="wi wi-humidity"></i>
-          <span>humidity</span>
-          {{ weatherMain.humidity }} %
-        </li>
-        <li>
-          <i class="wi wi-strong-wind"></i>
-          <span>wind</span>
-          {{ weatherData.wind.speed }} m/s
-        </li>
-        <li>
-          <i class="wi wi-sunrise"></i>
-          <span>sunrise</span>
-          {{ dayTimeSet(sunrise, timezone, true) }}
-        </li>
-        <li>
-          <i class="wi wi-sunset"></i>
-          <span>sunset</span>
-          {{ dayTimeSet(sunset, timezone, true) }}
-        </li>
-      </ul>
-      <!-- 새로고침 기능 보류 -->
-      <div class="refresh-weather">
-        <p class="refresh-time">{{ currentTimeForm() }}</p>
-        <button class="refresh-btn" @click.prevent="DataRefreshEvent()">
-          <i class="wi wi-refresh"></i>
-        </button>
+        <!-- 자세한 날씨 정보 -->
+        <ul class="detail-weather">
+          <li>
+            <i class="wi wi-direction-up"></i>
+            <span>max</span>
+            {{ weatherMain.temp_max }} °C
+          </li>
+          <li>
+            <i class="wi wi-direction-down"></i>
+            <span>min</span>
+            {{ weatherMain.temp_min }} °C
+          </li>
+          <li>
+            <i class="wi wi-humidity"></i>
+            <span>humidity</span>
+            {{ weatherMain.humidity }} %
+          </li>
+          <li>
+            <i class="wi wi-strong-wind"></i>
+            <span>wind</span>
+            {{ weatherData.wind.speed }} m/s
+          </li>
+          <li>
+            <i class="wi wi-sunrise"></i>
+            <span>sunrise</span>
+            {{ dayTimeSet(sunrise, timezone, true) }}
+          </li>
+          <li>
+            <i class="wi wi-sunset"></i>
+            <span>sunset</span>
+            {{ dayTimeSet(sunset, timezone, true) }}
+          </li>
+        </ul>
       </div>
     </div>
     <div class="warning" v-else>
-      <i class="warning-icon fas fa-exclamation-circle"></i>{{ logMessage }}
+      <p>
+        <i class="warning-icon fas fa-exclamation-circle"></i>{{ logMessage }}
+      </p>
     </div>
   </div>
 </template>
@@ -75,7 +69,8 @@
 import {
   currentTimeFormat,
   dayTimeSetting,
-  localDateFormat
+  localDateFormat,
+  localCurrentDateFormat
 } from '@/utils/dateFilters';
 import { mapState, mapGetters, mapActions } from 'vuex';
 
@@ -118,6 +113,9 @@ export default {
   mounted() {},
   methods: {
     ...mapActions(['FETCH_WEATHER', 'FETCH_WEEKLY_WEATHER']),
+    localCurrentDate(timezone) {
+      return localCurrentDateFormat(timezone);
+    },
     // 현재 위치 파악하는 함수
     async currentLocation() {
       // 위치정보가 있으면
@@ -167,6 +165,7 @@ export default {
       return dayTimeSetting(date, timezone, position);
     },
     // 낮, 밤 제어
+    // getters를 이용??
     dayStatusControl() {
       if (this.timeCondition) {
         const current = dayTimeSetting(this.currentTime, this.timezone, false);
