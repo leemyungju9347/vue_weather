@@ -1,22 +1,120 @@
 @media screen and (max-width:1023px) {
-    body {background: mediumaquamarine;}
+    /* body {background: mediumaquamarine;} */
+
     .weather-wrap {
         width: 95%;
     }
 
+    .app-header > form {
+        width: 80%;
+    }
+
+    /* ------------ today-weather ------------- */
+
     .today-weather > .today-weather-cont > .weather-info > .summary-weather {
-        padding-left: 0;
+        padding-left: 10px;
+        
     }
 
     .today-weather > .today-weather-cont > .weather-info > .summary-weather > .main-icon {
         margin-top: 90px;
+        font-size: 6.5em;
+        margin-right: 30px;
     }
 
     .today-weather > .today-weather-cont > .weather-info > .summary-weather > .wther-txt > strong {
         font-size: 1.5em;
     }
+
+    /* ------------ weekly-weather ------------- */
+    .weekly-weather > ul > li > strong {
+        font-size: 0.9em;
+    }
+
+    .weekly-weather > ul > li > .ww-temp {
+        font-size: 0.7em;
+    }
+
+    .weekly-weather > ul > li > .ww-icon {
+        font-size: 3em;
+        margin-top: 20px;
+    }
+
+    .weekly-weather > ul > li > .ww-desc {
+        margin: 20px auto 0;
+        font-size: 0.5em;
+    }
 }
 
 @media screen and (max-width:768px) {
-    body {background: orangered;}
+    /* body {background: orangered;} */
+
+    #app {
+        padding-bottom: 80px;
+    }
+
+    .weather-wrap {
+        margin: 30px auto 0;
+    }
+
+    .app-header > form {
+        font-size: 0.8em;
+    }
+
+    .app-header > form > label {
+        left: 23px;
+        top: 36px; 
+    }
+
+    .app-header > form > input {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+
+
+    .app-header > form > button {
+        top: 37px;
+        right: 11px;
+    }
+
+
+    .app-header > form > button > .fa-search {
+        font-size: 0.9em;
+    }
+    
+
+    /* ------------ weekly-weather ------------- */
+    .weekly-weather {
+        padding: 20px;
+        margin-top: 80px;
+    }
+
+    .weekly-weather > ul {
+        display:block;
+        overflow: hidden;
+    }
+
+    .weekly-weather > ul > li {
+        float: left;
+        width: calc(25% - 10px);
+        margin: 5px;
+        padding: 10px 0;
+    }
+
+    .weekly-weather > ul > li > strong {
+        font-size: 0.5em;
+    }
+
+    .weekly-weather > ul > li > .ww-temp {
+        display: none;
+    }
+
+    .weekly-weather > ul > li > .ww-icon {
+        font-size: 2em;
+    }
+
+    .weekly-weather > ul > li > .ww-desc {
+        margin: 20px auto 0;
+        font-size: 0.3em;
+    }
 }
