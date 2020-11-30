@@ -47,8 +47,27 @@ input:-webkit-autofill:active {
 	-webkit-text-fill-color: #585858 !important;
 } */
 
+button,input {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	border:transparent;
+	background-color: transparent;
+	color: #fff;
+}
+
 button {
+	font-family: inherit;
+	/* font-size: 90%; */
+	margin: 0;
 	cursor: pointer;
+	padding: 0;
+}
+
+button:focus,
+input:focus,
+select:focus {
+	outline: none;
+	outline-offset:unset;
 }
 
 *,

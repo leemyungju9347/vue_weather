@@ -10,7 +10,6 @@
     }
 
     /* ------------ today-weather ------------- */
-
     .today-weather > .today-weather-cont > .weather-info > .summary-weather {
         padding-left: 10px;
         
@@ -27,6 +26,14 @@
     }
 
     /* ------------ weekly-weather ------------- */
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth {
+        display: none;
+    }
+
+    .weekly-weather > .weekly-wthList > .mobile-weeklyWth {
+        display: block;
+    }
+
     .weekly-weather > ul > li > strong {
         font-size: 0.9em;
     }
