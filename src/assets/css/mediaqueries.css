@@ -26,28 +26,20 @@
     }
 
     /* ------------ weekly-weather ------------- */
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth {
-        display: none;
-    }
-
-    .weekly-weather > .weekly-wthList > .mobile-weeklyWth {
-        display: block;
-    }
-
-    .weekly-weather > ul > li > strong {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > strong {
         font-size: 0.9em;
     }
 
-    .weekly-weather > ul > li > .ww-temp {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-temp {
         font-size: 0.7em;
     }
 
-    .weekly-weather > ul > li > .ww-icon {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-icon {
         font-size: 3em;
         margin-top: 20px;
     }
 
-    .weekly-weather > ul > li > .ww-desc {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-desc {
         margin: 20px auto 0;
         font-size: 0.5em;
     }
@@ -96,32 +88,41 @@
         margin-top: 80px;
     }
 
-    .weekly-weather > ul {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth {
+        display: none;
+    }
+
+    .weekly-weather > .weekly-wthList > .mobile-weeklyWth {
+        display: block;
+    }
+
+    
+    /* .weekly-weather > .weekly-wthList > .pc-weeklyWth {
         display:block;
         overflow: hidden;
     }
 
-    .weekly-weather > ul > li {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li {
         float: left;
         width: calc(25% - 10px);
         margin: 5px;
         padding: 10px 0;
     }
 
-    .weekly-weather > ul > li > strong {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > strong {
         font-size: 0.5em;
     }
 
-    .weekly-weather > ul > li > .ww-temp {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-temp {
         display: none;
     }
 
-    .weekly-weather > ul > li > .ww-icon {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-icon {
         font-size: 2em;
     }
 
-    .weekly-weather > ul > li > .ww-desc {
+    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-desc {
         margin: 20px auto 0;
         font-size: 0.3em;
-    }
+    } */
 }
