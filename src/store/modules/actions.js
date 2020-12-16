@@ -7,6 +7,7 @@ export default {
   async FETCH_WEATHER({ commit }, payload) {
     try {
       const response = await currentWeather(payload);
+      console.log(response);
       commit('SET_WEATHER', await response.data);
       errMessage = '';
       return response;
