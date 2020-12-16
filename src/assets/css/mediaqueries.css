@@ -60,14 +60,9 @@
         font-size: 0.8em;
     }
 
-    .app-header > form > label {
-        left: 23px;
-        top: 36px; 
-    }
-
     .app-header > form > input {
         font-size: 0.8em;
-        padding: 10px;
+        padding: 10px 20px;
     }
 
 
@@ -80,6 +75,54 @@
     .app-header > form > button > .fa-search {
         font-size: 0.9em;
     }
+
+    /* ------------ today-weather ------------- */
+    .today-weather {
+        padding:30px;
+    }
+    .today-weather > .today-weather-cont > .cur-location {
+        font-size: 1.5em;
+    }
+
+    .today-weather > .today-weather-cont > .date {
+        font-size: 1em;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info {
+        display: block;
+        margin-top: 0;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .summary-weather {
+        width: 100%;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .summary-weather > .main-icon {
+        font-size: 5em;
+        margin-top: 60px;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .detail-weather {
+        width: 100%;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .summary-weather {
+        text-align: center;
+    }
+
+    
+    .today-weather > .today-weather-cont > .weather-info > .summary-weather > .wther-txt > strong {
+        font-size: 1.2em;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .detail-weather {
+        margin-top: 50px;
+    }
+
+    .today-weather > .today-weather-cont > .weather-info > .detail-weather > li {
+        font-size: 0.8em;
+    }
+
     
 
     /* ------------ weekly-weather ------------- */

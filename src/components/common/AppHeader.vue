@@ -1,8 +1,12 @@
 <template>
   <div class="app-header">
     <form action="" @submit.prevent="inputCity()">
-      <label for="search-bar" v-if="!city">Please enter a city name.</label>
-      <input id="search-bar" type="text" v-model="city" />
+      <input
+        id="search-bar"
+        placeholder="Please enter a city name."
+        type="text"
+        v-model="city"
+      />
       <button><i class="fas fa-search search"></i></button>
     </form>
   </div>

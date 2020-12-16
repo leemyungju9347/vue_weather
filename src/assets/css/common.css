@@ -41,26 +41,27 @@
     color: #555555;
 }
 
-.app-header > form:focus-within > label{
-    visibility: hidden;
-}
-.app-header > form > label {
-    position: absolute;
-    left: 25px;
-    top: 40px;
-    color: #242424;
-}
+
+
 .app-header > form > input {
     border: unset;
     border-radius:30px;
     width: 100%;
-    padding: 13px 25px;
+    padding: 10px 25px 15px;
     font-size: 1.2em;
     font-weight: bold;
     box-shadow: 5px 5px 5px 5px #7b7b7b54;
     box-shadow: 5px 5px 12px 3px #7f7f7f54;
     background: #ffffff;
     color: #242424;
+}
+
+.app-header > form > input::placeholder {
+    color: #242424;
+}
+
+.app-header > form > input:focus-within::placeholder {
+    color: transparent;
 }
 
 .night .app-header > form > input{
@@ -72,7 +73,7 @@
     background-color: unset;
     position: absolute;
     right: 23px;
-    top: 43px;
+    top: 45px;
     color: #555555;
 
 }
@@ -152,6 +153,12 @@
 
 .today-weather > .today-weather-cont > .weather-info > .detail-weather {
     width: 40%;
+}
+
+.today-weather > .today-weather-cont > .weather-info > .detail-weather::after {
+    content: '';
+    clear: both;
+    display: block;
 }
 
 .today-weather > .today-weather-cont > .weather-info > .detail-weather > li {
