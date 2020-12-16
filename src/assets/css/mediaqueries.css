@@ -1,12 +1,15 @@
 @media screen and (max-width:1023px) {
-    /* body {background: mediumaquamarine;} */
-
     .weather-wrap {
         width: 95%;
     }
 
     .app-header > form {
         width: 80%;
+    }
+
+    .app-header > form > button {
+        right: 25px;
+        top: 47px; 
     }
 
     /* ------------ today-weather ------------- */
@@ -26,28 +29,26 @@
     }
 
     /* ------------ weekly-weather ------------- */
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > strong {
+    .weekly-weather > ul > li > strong {
         font-size: 0.9em;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-temp {
+    .weekly-weather > ul > li > .ww-temp {
         font-size: 0.7em;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-icon {
+    .weekly-weather > ul > li > .ww-icon {
         font-size: 3em;
         margin-top: 20px;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-desc {
+    .weekly-weather > ul > li > .ww-desc {
         margin: 20px auto 0;
         font-size: 0.5em;
     }
 }
 
 @media screen and (max-width:768px) {
-    /* body {background: orangered;} */
-
     #app {
         padding-bottom: 80px;
     }
@@ -131,48 +132,44 @@
         margin-top: 80px;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth {
-        /* display: none; */
-    }
-
-    .weekly-weather > .weekly-wthList > .mobile-weeklyWth {
-        /* display: block; */
-    }
-
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth {
+    .weekly-weather > ul {
         display:block;
         overflow: hidden;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth::after {
+    .weekly-weather > ul::after {
         content: '';
         display: block;
         clear: both;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li {
+    .weekly-weather > ul > li {
         float: left;
         width: 25%;
         margin: 10px 0;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > strong {
+    .weekly-weather > ul > li > strong {
         font-size: 0.5em;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-icon {
+    .weekly-weather > ul > li > .ww-icon {
         font-size: 2em;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-desc {
+    .weekly-weather > ul > li > .ww-desc {
         display: none;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-temp {
+    .weekly-weather > ul > li > .ww-temp {
         font-size: 0.5em;
     }
 
-    .weekly-weather > .weekly-wthList > .pc-weeklyWth > li > .ww-temp > span > i {
+    .weekly-weather > ul > li > .ww-temp > .max {
+        margin-left: -3px;
+    }
+
+    .weekly-weather > ul > li > .ww-temp > span > i {
         font-size: 1em; 
         vertical-align: middle;
     }

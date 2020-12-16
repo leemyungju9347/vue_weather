@@ -1,65 +1,26 @@
 <template>
   <!-- 주간 날씨 -->
   <div class="weekly-weather" v-if="weeklyData">
-    <div class="weekly-wthList" v-if="weeklyDataCheck">
-      <!-- 피씨버전 -->
-      <ul class="pc-weeklyWth">
-        <li v-for="(item, index) in weeklyData" :key="index">
-          <!-- 날짜 -->
-          <strong>{{ weeklyDay(item.dt) }}</strong>
-          <span class="date">{{ weeklyDate(item.dt) }}</span>
-          <!-- 온도 최저 / 최고 -->
-          <p class="ww-temp">
-            <span class="max"
-              ><i class="wi wi-direction-up"></i>{{ item.temp.max }} °C</span
-            >
-            <span class="min"
-              ><i class="wi wi-direction-down"></i>{{ item.temp.min }} °C</span
-            >
-          </p>
-          <i
-            class="icon wi ww-icon"
-            :class="`wi-owm-${item.weather[0].id}`"
-          ></i>
-          <!-- 날씨 설명 -->
-          <p class="ww-desc">{{ item.weather[0].description }}</p>
-        </li>
-      </ul>
-      <!-- 모바일버전 -->
-      <div class="mobile-weeklyWth">
-        <transition-group tag="ul" class="mobile-weeklyWth">
-          <li
-            v-for="(item, index) in weeklyData"
-            :key="index + 0"
-            v-show="index === slideIdx"
+    <ul v-if="weeklyDataCheck">
+      <li v-for="(item, index) in weeklyData" :key="index">
+        <!-- 날짜 -->
+        <strong>{{ weeklyDay(item.dt) }}</strong>
+        <span class="date">{{ weeklyDate(item.dt) }}</span>
+        <!-- 온도 최저 / 최고 -->
+        <p class="ww-temp">
+          <span class="max"
+            ><i class="wi wi-direction-up"></i>{{ item.temp.max }} °C</span
           >
-            <strong>{{ weeklyDay(item.dt) }}</strong>
-            <i
-              class="icon wi ww-icon"
-              :class="`wi-owm-${item.weather[0].id}`"
-            ></i>
-            <p class="ww-desc">{{ item.weather[0].description }}</p>
-            <p class="ww-temp">
-              <span class="max"
-                ><i class="wi wi-direction-up"></i>{{ item.temp.max }} °C</span
-              >
-              <span class="min"
-                ><i class="wi wi-direction-down"></i
-                >{{ item.temp.min }} °C</span
-              >
-            </p>
-          </li>
-        </transition-group>
-        <button class="prev" @click="prevShowWeather">
-          <span>이전 날씨</span>
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="next" @click="nextShowWeather">
-          <span>다음 날씨</span>
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-    </div>
+          <span class="min"
+            ><i class="wi wi-direction-down"></i>{{ item.temp.min }} °C</span
+          >
+        </p>
+        <i class="icon wi ww-icon" :class="`wi-owm-${item.weather[0].id}`"></i>
+        <!-- 날씨 설명 -->
+        <p class="ww-desc">{{ item.weather[0].description }}</p>
+      </li>
+    </ul>
+    <!-- 경고메세지 -->
     <div class="warning" v-else>
       <p>
         <i class="warning-icon fas fa-exclamation-circle"></i>{{ logMessage }}
